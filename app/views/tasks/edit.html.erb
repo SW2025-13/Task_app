@@ -1,2 +1,32 @@
-<h1>Tasks#edit</h1>
-<p>Find me in app/views/tasks/edit.html.erb</p>
+<h1>編集ページ</h1>
+
+<%= form_with(model: @task, local: true) do |f| %>
+
+  <div style="display: flex; gap: 40px;">
+    <!-- 左カラム -->
+    <div>
+      <p>タスク名</p>
+      <%= f.text_field :title %>
+
+      <p>優先順位（1〜5）</p>
+      <%= f.number_field :priority, in: 1..5 %>
+
+      <p>労力（1〜5）</p>
+      <%= f.number_field :effort, in: 1..5 %>
+    </div>
+
+    <!-- 右カラム：説明 -->
+    <div>
+      <p>説明（任意）</p>
+      <%= f.text_area :content, rows: 8, cols: 40 %>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <p>期限</p>
+    <%= f.date_field :deadline %>
+  </div>
+
+  <%= f.submit "編集" %>
+
+<% end %>

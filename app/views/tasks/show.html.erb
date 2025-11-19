@@ -1,2 +1,19 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<h1>詳細ページ</h1>
+
+<div style="margin-bottom: 20px;">
+  <p><strong>タスク名：</strong></p>
+  <p><%= @task.title %></p>
+</div>
+
+<div style="margin-bottom: 20px;">
+  <p><strong>説明内容：</strong></p>
+  <div style="border: 1px solid #ccc; padding: 10px; min-height: 150px;">
+    <%= simple_format(@task.content) %>
+  </div>
+</div>
+
+<div style="margin-bottom: 20px;">
+  <p><strong>期限：</strong> <%= @task.deadline %></p>
+</div>
+
+<%= link_to "戻る", tasks_path %>
