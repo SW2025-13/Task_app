@@ -24,13 +24,21 @@
   <p><strong>労力：</strong> <%= @task.effort %></p>
 </div>
 
-<!-- 期限 -->
+<!-- 期限（期限切れなら赤色に） -->
 <div style="margin-bottom: 20px;">
-  <p><strong>期限：</strong> <%= @task.deadline %></p>
+  <% if @task.deadline.present? && @task.deadline < Date.today %>
+    <p style="color: red;">
+      <strong>期限：</strong> <%= @task.deadline %>（期限切れ）
+    </p>
+  <% else %>
+    <p><strong>期限：</strong> <%= @task.deadline %></p>
+  <% end %>
 </div>
 
-<%= link_to "戻る", tasks_path %>
-<%= link_to "編集", edit_task_path(@task), class: "btn" %>
+<!-- ボタン類 -->
+<div style="margin-top: 20px;">
+  <%= link_to "戻る", tasks_path, class: "btn", style: "margin-right: 10px;" %>
+  <%= link_to "編集", edit_task_path(@task), class: "btn", style: "margin-right: 10px;" %>
 <%= link_to "削除", task_path(@task),
       data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
       class: "btn", style: "color: red;" %>
