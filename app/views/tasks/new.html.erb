@@ -11,12 +11,13 @@
 <% end %>
 
 <%= form_with(model: @task, local: true) do |f| %>
-
+  <!---入力項目--->
+  <!--タスク-->
   <div>
     <p>タスク名</p>
     <%= f.text_field :title %>
   </div>
-
+    <!---優先順位　1~5まで--->
   <div>
     <p>優先順位（1〜5）</p>
     <%= f.number_field :priority, in: 1..5 %>
@@ -26,12 +27,12 @@
     <p>労力（1〜5）</p>
     <%= f.number_field :effort, in: 1..5 %>
   </div>
-
+  <!---説明--->
   <div>
     <p>説明（任意）</p>
     <%= f.text_area :content %>
   </div>
-
+  <!---期限--->
   <div>
     <p>期限</p>
     <%= f.date_field :deadline %>
