@@ -1,5 +1,6 @@
 <h1>編集ページ</h1>
-<% if @task.errors.any? %>
+
+<% if @task.errors.present? %>
   <div style="color: red;">
     <h3><%= @task.errors.count %>件のエラーがあります：</h3>
     <ul>

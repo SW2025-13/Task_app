@@ -7,7 +7,7 @@ git checkout view(作業する所)   # 個人作業ブランチへ移動
 
 git add .
 git commit -m "作業内容"
-git push origin view
+git push origin view(作業してた場所)
 
 2.レビュー or チーム合意後、main に取り込む
 
@@ -22,5 +22,5 @@ git push origin main
 git switch main
 git pull origin main
 
-
-git switch view_page
+git switch view_page(自分が作業する場所)
+作業...
