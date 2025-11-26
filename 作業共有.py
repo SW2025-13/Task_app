@@ -1,6 +1,7 @@
 viewで作業⇒mainに入れる⇒共有
 
 1.作業者
+git branch view(作成) #個人作業ブランチ作成
 git checkout view(作業する所)   # 個人作業ブランチへ移動
 
 （作業）
@@ -24,3 +25,4 @@ git pull origin main
 
 git switch view_page(自分が作業する場所)
 作業...
+
