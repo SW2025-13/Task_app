@@ -23,6 +23,9 @@ git push origin main
 git switch main
 git pull origin main
 
+
+
+
 git switch view_page(自分が作業する場所)
 作業...
 
