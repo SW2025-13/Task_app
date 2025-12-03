@@ -1,17 +1,23 @@
+<table border="1" cellpadding="8">
 <h1>タスク一覧</h1>
 
 <div style="margin-bottom: 15px;">
+  <!-- 新規作成ボタン -->
   <%= link_to "＋ 新規タスクを作成", new_task_path, class: "btn", style: "padding: 8px 12px; background: #4CAF50; color: white; border-radius: 5px; text-decoration: none;" %>
 </div>
-
-<table border="1" cellpadding="8">
   <thead>
     <tr>
       <th>タスク名</th>
-      <th>期限</th>
-      <th>労力</th>
+      <th>
+        <%= link_to "期限", tasks_path(sort: "deadline", direction: params[:sort] == "deadline" && params[:direction] == "asc" ? "desc" : "asc") %>
+      </th>
+      <th>
+        <%= link_to "労力", tasks_path(sort: "effort", direction: params[:sort] == "effort" && params[:direction] == "asc" ? "desc" : "asc") %>
+      </th>
       <th>説明</th>
-      <th>優先度</th>
+      <th>
+        <%= link_to "優先度", tasks_path(sort: "priority", direction: params[:sort] == "priority" && params[:direction] == "asc" ? "desc" : "asc") %>
+      </th>
       <th>完了</th>
       <th>削除</th>
       <th>編集</th>
@@ -19,22 +25,22 @@
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
-    <tr class="<%= 'expired' if task.deadline.present? && task.deadline < Date.today %>">
-      <td><%= task.title %></td>
-      <td><%= task.deadline %></td>
-      <td><%= task.effort %></td>
-      <td><%= task.content %></td>
-      <td><%= task.priority %></td>
-      <td>
-        <%= check_box_tag "done", task.id, task.done, disabled: true %>
-      </td>
-      <td>
-        <%= link_to "削除", task_path(task), method: :delete, data: { confirm: "削除しますか?" } %>
-      </td>
-      <td>
-        <%= link_to "編集", edit_task_path(task) %>
-      </td>
-    </tr>
+      <tr class="<%= 'expired' if task.deadline.present? && task.deadline < Date.today %>">
+        <td><%= task.title %></td>
+        <td><%= task.deadline %></td>
+        <td><%= task.effort %></td>
+        <td><%= task.content %></td>
+        <td><%= task.priority %></td>
+        <td>
+          <%= check_box_tag "done", task.id, task.done, disabled: true %>
+        </td>
+        <td>
+          <%= link_to "削除", task_path(task), method: :delete, data: { confirm: "削除しますか?" } %>
+        </td>
+        <td>
+          <%= link_to "編集", edit_task_path(task) %>
+        </td>
+      </tr>
     <% end %>
   </tbody>
 </table>

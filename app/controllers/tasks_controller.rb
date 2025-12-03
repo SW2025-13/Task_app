@@ -3,7 +3,10 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_done]
 
   def index
-    @tasks = current_user.tasks.order(priority: :desc)
+    sort_column = params[:sort].presence_in(%w[deadline effort priority]) || 'deadline'
+    sort_direction = params[:direction].in?(%w[asc desc]) ? params[:direction] : 'asc'
+
+    @tasks = Task.order("#{sort_column} #{sort_direction}")
   end
 
   def new
