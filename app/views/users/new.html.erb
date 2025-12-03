@@ -1,36 +1,30 @@
-<!-- app/views/users/new.html.erb -->
 <h1>ユーザ登録</h1>
 
-<% if @user.errors.any? %>
-  <div style="color: red;">
-    <h3><%= @user.errors.count %>件のエラーがあります：</h3>
-    <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <%= form_with(model: @user, local: true) do |f| %>
-  <div>
-    <p>メールアドレス（ID）</p>
-    <%= f.text_field :email %>
-  </div>
+  <% if @user.errors.any? %>
+    <div>
+      <h2><%= @user.errors.count %>件のエラーがあります：</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <div>
-    <p>パスワード</p>
-    <%= f.password_field :password %>
-  </div>
+  <p>ユーザー名</p>
+  <%= f.text_field :name %>
 
-  <div>
-    <p>パスワード確認</p>
-    <%= f.password_field :password_confirmation %>
-  </div>
+  <p>メールアドレス</p>
+  <%= f.email_field :email %>
 
-  <%= f.submit "登録", class: "btn" %>
+  <p>パスワード</p>
+  <%= f.password_field :password %>
+
+  <p>パスワード確認</p>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.submit "登録" %>
 <% end %>
 
-<div style="margin-top: 15px;">
-  <%= link_to "ログインはこちら", login_path %>
-</div>
+<%= link_to "ログインはこちら", login_path %>
