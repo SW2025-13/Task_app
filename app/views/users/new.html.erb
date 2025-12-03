@@ -1,2 +1,36 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<!-- app/views/users/new.html.erb -->
+<h1>ユーザ登録</h1>
+
+<% if @user.errors.any? %>
+  <div style="color: red;">
+    <h3><%= @user.errors.count %>件のエラーがあります：</h3>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @user, local: true) do |f| %>
+  <div>
+    <p>メールアドレス（ID）</p>
+    <%= f.text_field :email %>
+  </div>
+
+  <div>
+    <p>パスワード</p>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <p>パスワード確認</p>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit "登録", class: "btn" %>
+<% end %>
+
+<div style="margin-top: 15px;">
+  <%= link_to "ログインはこちら", login_path %>
+</div>
