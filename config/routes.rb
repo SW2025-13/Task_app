@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   # ログイン
   get  '/login',  to: 'sessions#new',     as: 'login'
-  post '/login',  to: 'sessions#create'          # ← これが必要！
+  post '/login',  to: 'sessions#create'          
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
   resources :tasks do

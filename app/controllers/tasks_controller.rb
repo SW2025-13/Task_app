@@ -5,9 +5,10 @@ class TasksController < ApplicationController
   def index
     sort_column = params[:sort].presence_in(%w[deadline effort priority]) || 'deadline'
     sort_direction = params[:direction].in?(%w[asc desc]) ? params[:direction] : 'asc'
-
-    @tasks = Task.order("#{sort_column} #{sort_direction}")
+  
+    @tasks = current_user.tasks.order("#{sort_column} #{sort_direction}")
   end
+
 
   def new
     @task = current_user.tasks.build
@@ -40,9 +41,11 @@ class TasksController < ApplicationController
   end
 
   def toggle_done
+    @task = Task.find(params[:id])
     @task.update(done: !@task.done)
     redirect_to tasks_path
   end
+
 
   private
 
