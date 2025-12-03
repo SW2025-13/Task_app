@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   root "tasks#index"
 
   resources :users, only: [:new, :create]
-  resources :sessions, only: [:new, :create, :destroy]
 
-  get '/login', to: 'sessions#new', as: 'login'
+  # ログイン
+  get  '/login',  to: 'sessions#new',     as: 'login'
+  post '/login',  to: 'sessions#create'          # ← これが必要！
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
   resources :tasks do
