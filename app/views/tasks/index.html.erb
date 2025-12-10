@@ -1,9 +1,17 @@
 <h1>タスク一覧</h1>
 
-<div style="margin-bottom: 15px;">
+<div style="margin-bottom: 15px; display: flex; gap: 10px;">
   <!-- 新規作成ボタン -->
-  <%= link_to "＋ 新規タスクを作成", new_task_path, class: "btn", style: "padding: 8px 12px; background: #4CAF50; color: white; border-radius: 5px; text-decoration: none;" %>
+  <%= link_to "＋ 新規タスクを作成", new_task_path,
+      class: "btn",
+      style: "padding: 8px 12px; background: #4CAF50; color: white; border-radius: 5px; text-decoration: none;" %>
+  <%= button_to "ログアウト", logout_path,
+      method: :delete,
+      class: "btn",
+      form: { style: "display: inline;" },
+      style: "padding: 8px 12px; background: #ff4d4d; color: white; border-radius: 5px; border: none;" %>
 </div>
+
 
 <table border="1" cellpadding="8">
   <thead>
