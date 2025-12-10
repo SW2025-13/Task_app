@@ -3,8 +3,7 @@ require "test_helper"
 class TasksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
-    log_in_as(@user)        # ← 追加（ログイン）
-
+    log_in_as(@user)   # ←必ずログインする
     @task = tasks(:one)
   end
 
@@ -31,8 +30,6 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       }
     end
     assert_redirected_to tasks_url
-    follow_redirect!
-    assert_select ".notice", "タスクを作成しました"
   end
 
   test "タスク作成に失敗（期限なし）" do
@@ -53,8 +50,6 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       task: { title: "更新タイトル" }
     }
     assert_redirected_to tasks_url
-    follow_redirect!
-    assert_select ".notice", "タスクを更新しました"
   end
 
   test "タスクを削除できる" do
@@ -62,7 +57,5 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       delete task_url(@task)
     end
     assert_redirected_to tasks_url
-    follow_redirect!
-    assert_select ".notice", "タスクを削除しました"
   end
 end

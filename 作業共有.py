@@ -15,7 +15,7 @@ git push origin view(作業してた場所)
 main に切り替えて merge
 
 git switch main
-git pull origin main
+git pull origin maingit 
 git merge view(作業してた場所)
 git push origin main
 
