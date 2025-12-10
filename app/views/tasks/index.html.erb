@@ -5,13 +5,13 @@
   <%= link_to "＋ 新規タスクを作成", new_task_path,
       class: "btn",
       style: "padding: 8px 12px; background: #4CAF50; color: white; border-radius: 5px; text-decoration: none;" %>
+
   <%= button_to "ログアウト", logout_path,
       method: :delete,
       class: "btn",
       form: { style: "display: inline;" },
       style: "padding: 8px 12px; background: #ff4d4d; color: white; border-radius: 5px; border: none;" %>
 </div>
-
 
 <table border="1" cellpadding="8">
   <thead>
@@ -42,16 +42,19 @@
         <td><%= task.content %></td>
         <td><%= task.priority %></td>
 
-        <!-- 完了チェック-->
+        <!-- 完了チェック -->
         <td>
           <%= form_with url: toggle_done_task_path(task), method: :post, local: true do %>
             <%= check_box_tag :done, 1, task.done, onclick: "this.form.submit();" %>
           <% end %>
         </td>
 
+        <!-- 削除 -->
         <td>
           <%= link_to "削除", task_path(task), method: :delete, data: { confirm: "削除しますか?" } %>
         </td>
+
+        <!-- 編集 -->
         <td>
           <%= link_to "編集", edit_task_path(task) %>
         </td>
