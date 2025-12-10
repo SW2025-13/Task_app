@@ -1,43 +1,68 @@
 require "test_helper"
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get tasks_index_url
+  setup do
+    @user = users(:one)
+    log_in_as(@user)        # ← 追加（ログイン）
+
+    @task = tasks(:one)
+  end
+
+  test "index が表示される" do
+    get tasks_url
+    assert_response :success
+    assert_select "h1", "タスク一覧"
+  end
+
+  test "new が表示される" do
+    get new_task_url
     assert_response :success
   end
 
-  test "should get new" do
-    get tasks_new_url
-    assert_response :success
+  test "タスクを作成できる" do
+    assert_difference("Task.count", 1) do
+      post tasks_url, params: {
+        task: {
+          title: "新規タスク",
+          effort: 3,
+          priority: 2,
+          deadline: Date.today + 1
+        }
+      }
+    end
+    assert_redirected_to tasks_url
+    follow_redirect!
+    assert_select ".notice", "タスクを作成しました"
   end
 
-  test "should get create" do
-    get tasks_create_url
-    assert_response :success
+  test "タスク作成に失敗（期限なし）" do
+    assert_no_difference("Task.count") do
+      post tasks_url, params: {
+        task: {
+          title: "期限なしタスク",
+          effort: 3,
+          priority: 2
+        }
+      }
+    end
+    assert_response :unprocessable_entity
   end
 
-  test "should get show" do
-    get tasks_show_url
-    assert_response :success
+  test "タスクを更新できる" do
+    patch task_url(@task), params: {
+      task: { title: "更新タイトル" }
+    }
+    assert_redirected_to tasks_url
+    follow_redirect!
+    assert_select ".notice", "タスクを更新しました"
   end
 
-  test "should get edit" do
-    get tasks_edit_url
-    assert_response :success
-  end
-
-  test "should get update" do
-    get tasks_update_url
-    assert_response :success
-  end
-
-  test "should get destroy" do
-    get tasks_destroy_url
-    assert_response :success
-  end
-
-  test "should get toggle_done" do
-    get tasks_toggle_done_url
-    assert_response :success
+  test "タスクを削除できる" do
+    assert_difference("Task.count", -1) do
+      delete task_url(@task)
+    end
+    assert_redirected_to tasks_url
+    follow_redirect!
+    assert_select ".notice", "タスクを削除しました"
   end
 end
