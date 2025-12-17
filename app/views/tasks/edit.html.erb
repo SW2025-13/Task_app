@@ -16,28 +16,28 @@
   <div style="display: flex; gap: 40px;">
     <!-- 左カラム -->
     <div>
-      <p>タスク名</p>
-      <%= f.text_field :title %>
+      <%= f.label :title, "タイトル" %><br>
+      <%= f.text_field :title %><br><br>
 
-      <p>優先順位（1〜5）</p>
-      <%= f.number_field :priority, in: 1..5 %>
+      <%= f.label :priority, "優先度（1〜5）" %><br>
+      <%= f.number_field :priority, in: 1..5 %><br><br>
 
-      <p>労力（1〜5）</p>
+      <%= f.label :effort, "労力（1〜5）" %><br>
       <%= f.number_field :effort, in: 1..5 %>
     </div>
 
-    <!-- 右カラム：説明 -->
+    <!-- 右カラム -->
     <div>
-      <p>説明（任意）</p>
+      <%= f.label :content, "説明" %><br>
       <%= f.text_area :content, rows: 8, cols: 40 %>
     </div>
   </div>
 
   <div style="margin-top: 20px;">
-    <p>期限</p>
+    <%= f.label :deadline, "期限" %><br>
     <%= f.date_field :deadline %>
   </div>
 
-  <%= f.submit "編集" %>
+  <%= f.submit "更新" %>
 
 <% end %>

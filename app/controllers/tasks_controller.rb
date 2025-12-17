@@ -1,14 +1,11 @@
 class TasksController < ApplicationController
   before_action :require_login
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_done]
+  before_action :set_task, only: [:edit, :update, :destroy, :toggle_done]
 
   def index
     sort_column = params[:sort].presence_in(%w[deadline effort priority]) || 'deadline'
-    sort_direction = params[:direction].in?(%w[asc desc]) ? params[:direction] : 'asc'
-  
-    @tasks = current_user.tasks.order("#{sort_column} #{sort_direction}")
+    @tasks = current_user.tasks.order(sort_column)
   end
-
 
   def new
     @task = current_user.tasks.build
@@ -17,19 +14,17 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
-      redirect_to tasks_path, notice: "タスクを登録しました。"
+      redirect_to tasks_path, notice: "タスクを登録しました"
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def show; end
-
   def edit; end
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "タスクを更新しました。"
+      redirect_to tasks_path, notice: "タスクを更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,15 +32,13 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: "タスクを削除しました。"
+    redirect_to tasks_path, notice: "タスクを削除しました"
   end
 
   def toggle_done
-    @task = Task.find(params[:id])
     @task.update(done: !@task.done)
     redirect_to tasks_path
   end
-
 
   private
 

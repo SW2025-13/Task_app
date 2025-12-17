@@ -2,16 +2,16 @@ one:
   title: "Task One"
   content: "Test Content 1"
   effort: 3
-  deadline: 2025-11-12
+  deadline: <%= Date.today + 1.day %>
   priority: 2
   done: false
-  user_id: 1
+  user: one   # users.yml のラベル one に対応
 
 two:
   title: "Task Two"
   content: "Test Content 2"
   effort: 4
-  deadline: 2025-11-12
+  deadline: <%= Date.today + 2.days %>
   priority: 3
   done: false
-  user_id: 2
+  user: two   # users.yml のラベル two に対応

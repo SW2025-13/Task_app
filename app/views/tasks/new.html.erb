@@ -1,4 +1,5 @@
 <h1>新規作成ページ</h1>
+
 <% if @task.errors.any? %>
   <div style="color: red;">
     <h3><%= @task.errors.count %>件のエラーがあります：</h3>
@@ -11,30 +12,29 @@
 <% end %>
 
 <%= form_with(model: @task, local: true) do |f| %>
-  <!---入力項目--->
-  <!--タスク-->
+
   <div>
-    <p>タスク名</p>
+    <%= f.label :title, "タイトル" %><br>
     <%= f.text_field :title %>
   </div>
-    <!---優先順位　1~5まで--->
+
   <div>
-    <p>優先順位（1〜5）</p>
+    <%= f.label :priority, "優先度（1〜5）" %><br>
     <%= f.number_field :priority, in: 1..5 %>
   </div>
 
   <div>
-    <p>労力（1〜5）</p>
+    <%= f.label :effort, "労力（1〜5）" %><br>
     <%= f.number_field :effort, in: 1..5 %>
   </div>
-  <!---説明--->
+
   <div>
-    <p>説明（任意）</p>
+    <%= f.label :content, "説明" %><br>
     <%= f.text_area :content %>
   </div>
-  <!---期限--->
+
   <div>
-    <p>期限</p>
+    <%= f.label :deadline, "期限" %><br>
     <%= f.date_field :deadline %>
   </div>
 

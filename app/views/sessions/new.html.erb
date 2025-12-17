@@ -7,19 +7,15 @@
 <% end %>
 
 <%= form_with url: login_path, scope: :session, local: true do |f| %>
-
   <div>
-    <p>メールアドレス（ID）</p>
+    <%= f.label :email, "メールアドレス（ID）" %><br>
     <%= f.text_field :email %>
-  </div>
 
-  <div>
-    <p>パスワード</p>
+    <%= f.label :password, "パスワード" %><br>
     <%= f.password_field :password %>
   </div>
 
   <%= f.submit "ログイン", class: "btn" %>
-
 <% end %>
 
 <div style="margin-top: 15px;">
