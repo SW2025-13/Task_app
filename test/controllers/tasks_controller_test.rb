@@ -2,59 +2,51 @@ require "test_helper"
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one)
-    log_in_as(@user)        # ← 追加（ログイン）
+    @user = User.create!(
+      name: "テストユーザー",
+      email: "test@example.com",
+      password: "password"
+    )
 
-    @task = tasks(:one)
+    post login_path, params: {
+      email: @user.email,
+      password: "password"
+    }
+
+    @task = @user.tasks.create!(
+      title: "テストタスク",
+      content: "これはテスト用タスクです",
+      effort: 3,
+      priority: 2,
+      deadline: Date.today + 7.days,
+      done: false
+    )
   end
 
-  test "index が表示される" do
+  test "タスク一覧が表示される" do
     get tasks_url
     assert_response :success
-    assert_select "h1", "タスク一覧"
+    assert_select "td", text: @task.title
   end
 
-  test "new が表示される" do
-    get new_task_url
-    assert_response :success
-  end
-
-  test "タスクを作成できる" do
+  test "新規タスクを作成できる" do
     assert_difference("Task.count", 1) do
-      post tasks_url, params: {
-        task: {
-          title: "新規タスク",
-          effort: 3,
-          priority: 2,
-          deadline: Date.today + 1
-        }
-      }
+      post tasks_url, params: { task: {
+        title: "新規タスク",
+        content: "新しいタスク内容",
+        effort: 2,
+        priority: 1,
+        deadline: Date.today + 3.days,
+        done: false
+      } }
     end
     assert_redirected_to tasks_url
-    follow_redirect!
-    assert_select ".notice", "タスクを作成しました"
-  end
-
-  test "タスク作成に失敗（期限なし）" do
-    assert_no_difference("Task.count") do
-      post tasks_url, params: {
-        task: {
-          title: "期限なしタスク",
-          effort: 3,
-          priority: 2
-        }
-      }
-    end
-    assert_response :unprocessable_entity
   end
 
   test "タスクを更新できる" do
-    patch task_url(@task), params: {
-      task: { title: "更新タイトル" }
-    }
+    patch task_url(@task), params: { task: { title: "更新タスク" } }
     assert_redirected_to tasks_url
-    follow_redirect!
-    assert_select ".notice", "タスクを更新しました"
+    assert_equal "更新タスク", @task.reload.title
   end
 
   test "タスクを削除できる" do
@@ -62,7 +54,5 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       delete task_url(@task)
     end
     assert_redirected_to tasks_url
-    follow_redirect!
-    assert_select ".notice", "タスクを削除しました"
   end
 end

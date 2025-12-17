@@ -1,17 +1,17 @@
-one:
-  title: "Task One"
-  content: "Test Content 1"
+task_one:
+  title: "最初のタスク"
+  content: "テスト用の内容1"
   effort: 3
-  deadline: 2025-11-12
+  deadline: <%= 1.week.from_now.to_date %>
   priority: 2
   done: false
-  user_id: 1
+  user: one
 
-two:
-  title: "Task Two"
-  content: "Test Content 2"
-  effort: 4
-  deadline: 2025-11-12
-  priority: 3
-  done: false
-  user_id: 2
+task_two:
+  title: "二番目のタスク"
+  content: "テスト用の内容2"
+  effort: 2
+  deadline: <%= 2.days.from_now.to_date %>
+  priority: 1
+  done: true
+  user: two
