@@ -1,8 +1,16 @@
-<h1>編集ページ</h1>
+<h1 style="text-align: center;">タスク編集</h1>
 
 <% if @task.errors.present? %>
-  <div style="color: red;">
-    <h3><%= @task.errors.count %>件のエラーがあります：</h3>
+  <div style="
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #ffecec;
+    border: 1px solid #ff9999;
+    border-radius: 6px;
+    color: #b30000;
+  ">
+    <strong><%= @task.errors.count %>件のエラーがあります：</strong>
     <ul>
       <% @task.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -13,31 +21,60 @@
 
 <%= form_with(model: @task, local: true) do |f| %>
 
-  <div style="display: flex; gap: 40px;">
-    <!-- 左カラム -->
-    <div>
-      <%= f.label :title, "タイトル" %><br>
-      <%= f.text_field :title %><br><br>
+  <div style="
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+  ">
 
-      <%= f.label :priority, "優先度（1〜5）" %><br>
-      <%= f.number_field :priority, in: 1..5 %><br><br>
+    <div style="display: flex; gap: 30px;">
 
-      <%= f.label :effort, "労力（1〜5）" %><br>
-      <%= f.number_field :effort, in: 1..5 %>
+      <!-- 左カラム -->
+      <div style="flex: 1;">
+        <div style="margin-bottom: 15px;">
+          <%= f.label :title, "タイトル" %><br>
+          <%= f.text_field :title, style: "width: 100%; padding: 6px;" %>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <%= f.label :priority, "優先度（1〜5）" %><br>
+          <%= f.number_field :priority, in: 1..5, style: "width: 100%; padding: 6px;" %>
+        </div>
+
+        <div>
+          <%= f.label :effort, "労力（1〜5）" %><br>
+          <%= f.number_field :effort, in: 1..5, style: "width: 100%; padding: 6px;" %>
+        </div>
+      </div>
+
+      <!-- 右カラム -->
+      <div style="flex: 1;">
+        <%= f.label :content, "説明" %><br>
+        <%= f.text_area :content, rows: 8, style: "width: 100%; padding: 6px;" %>
+      </div>
     </div>
 
-    <!-- 右カラム -->
-    <div>
-      <%= f.label :content, "説明" %><br>
-      <%= f.text_area :content, rows: 8, cols: 40 %>
+    <div style="margin-top: 20px;">
+      <%= f.label :deadline, "期限" %><br>
+      <%= f.date_field :deadline, style: "padding: 6px;" %>
     </div>
-  </div>
 
-  <div style="margin-top: 20px;">
-    <%= f.label :deadline, "期限" %><br>
-    <%= f.date_field :deadline %>
-  </div>
+    <div style="margin-top: 30px; text-align: center;">
+      <%= f.submit "更新",
+        style: "
+          padding: 10px 30px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          font-size: 16px;
+          cursor: pointer;
+        " %>
+    </div>
 
-  <%= f.submit "更新" %>
+  </div>
 
 <% end %>

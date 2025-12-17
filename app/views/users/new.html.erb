@@ -1,9 +1,18 @@
-<h1>ユーザ登録</h1>
+<h1 style="text-align: center;">ユーザー登録</h1>
 
 <%= form_with(model: @user, local: true) do |f| %>
+
   <% if @user.errors.any? %>
-    <div>
-      <h2><%= @user.errors.count %>件のエラーがあります：</h2>
+    <div style="
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 15px;
+      background-color: #ffecec;
+      border: 1px solid #ff9999;
+      border-radius: 6px;
+      color: #b30000;
+    ">
+      <strong><%= @user.errors.count %>件のエラーがあります：</strong>
       <ul>
         <% @user.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -12,19 +21,60 @@
     </div>
   <% end %>
 
-  <p>ユーザー名</p>
-  <%= f.text_field :name %>
+  <div style="
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+  ">
 
-  <p>メールアドレス</p>
-  <%= f.email_field :email %>
+    <div style="margin-bottom: 15px;">
+      <%= f.label :name, "ユーザー名" %><br>
+      <%= f.text_field :name, style: "width: 100%; padding: 8px;" %>
+    </div>
 
-  <p>パスワード</p>
-  <%= f.password_field :password %>
+    <div style="margin-bottom: 15px;">
+      <%= f.label :email, "メールアドレス" %><br>
+      <%= f.email_field :email, style: "width: 100%; padding: 8px;" %>
+    </div>
 
-  <p>パスワード確認</p>
-  <%= f.password_field :password_confirmation %>
+    <div style="margin-bottom: 15px;">
+      <%= f.label :password, "パスワード" %><br>
+      <%= f.password_field :password, style: "width: 100%; padding: 8px;" %>
+    </div>
 
-  <%= f.submit "登録" %>
+    <div style="margin-bottom: 20px;">
+      <%= f.label :password_confirmation, "パスワード確認" %><br>
+      <%= f.password_field :password_confirmation, style: "width: 100%; padding: 8px;" %>
+    </div>
+
+    <div style="text-align: center;">
+      <%= f.submit "登録",
+        style: "
+          padding: 10px 30px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          font-size: 16px;
+          cursor: pointer;
+        " %>
+    </div>
+
+  </div>
 <% end %>
 
-<%= link_to "ログインはこちら", login_path %>
+<div style="text-align: center; margin-top: 20px;">
+  <%= link_to "ログインはこちら",
+      login_path,
+      style: "
+        display: inline-block;
+        padding: 8px 20px;
+        background-color: #2196F3;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+      " %>
+</div>
