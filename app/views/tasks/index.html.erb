@@ -55,7 +55,12 @@
 
         <!-- rack_test では confirm は使えないので削除 -->
         <td>
-          <%= link_to "削除", task_path(task), method: :delete %>
+          <%= link_to "削除",
+            task_path(task),
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: "削除しますか？"
+            } %>
         </td>
 
         <td>
