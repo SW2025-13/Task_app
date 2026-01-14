@@ -3,8 +3,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :toggle_done]
   def index
     sort_column = params[:sort].presence_in(%w[deadline effort priority]) || 'deadline'
-    @tasks = current_user.tasks.order(sort_column)
+    sort_direction = params[:direction].presence_in(%w[asc desc]) || 'asc'
+  
+    @tasks = current_user.tasks.order("#{sort_column} #{sort_direction}")
   end
+
+#@tasks = current_user.tasks.order("#{sort_column} #{sort_direction}")
 
   def show
     # set_task で @task が取得されるだけでOK

@@ -7,50 +7,56 @@
   <% end %>
 
   <!-- 上部ボタン -->
-  <div style="
-    margin: 20px auto;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-  ">
+  <div style="margin: 20px auto; display: flex; justify-content: center; gap: 12px;">
     <%= link_to "＋ 新規タスクを作成", new_task_path,
-        style: "
-          padding: 8px 12px;
-          background: #4CAF50;
-          color: white;
-          border-radius: 5px;
-          text-decoration: none;
-        " %>
+        style: "padding: 8px 12px; background: #4CAF50; color: white; border-radius: 5px; text-decoration: none;" %>
 
     <%= button_to "ログアウト", logout_path,
         method: :delete,
         form: { style: "display: inline;" },
-        style: "
-          padding: 8px 12px;
-          background: #ff4d4d;
-          color: white;
-          border-radius: 5px;
-          border: none;
-          cursor: pointer;
-        " %>
+        style: "padding: 8px 12px; background: #ff4d4d; color: white; border-radius: 5px; border: none;" %>
   </div>
 
   <!-- テーブル -->
   <div style="overflow-x: auto;">
     <table border="1" cellpadding="8"
-      style="
-        margin: 0 auto;
-        border-collapse: collapse;
-        min-width: 800px;
-        text-align: left;
-      ">
+      style="margin: 0 auto; border-collapse: collapse; min-width: 800px; text-align: left;">
+
       <thead>
         <tr>
           <th>タスク名</th>
-          <th><%= link_to "期限", tasks_path(sort: "deadline") %></th>
-          <th><%= link_to "労力", tasks_path(sort: "effort") %></th>
+
+          <th>
+            <%= link_to tasks_path(
+                  sort: "deadline",
+                  direction: next_direction("deadline")
+                ),
+                style: "text-decoration: none; color: black;" do %>
+              期限<%= sort_icon("deadline") %>
+            <% end %>
+          </th>
+
+          <th>
+            <%= link_to tasks_path(
+                  sort: "effort",
+                  direction: next_direction("effort")
+                ),
+                style: "text-decoration: none; color: black;" do %>
+              労力<%= sort_icon("effort") %>
+            <% end %>
+          </th>
+
           <th>説明</th>
-          <th><%= link_to "優先度", tasks_path(sort: "priority") %></th>
+
+          <th>
+            <%= link_to tasks_path(
+                  sort: "priority",
+                  direction: next_direction("priority")
+                ),
+                style: "text-decoration: none; color: black;" do %>
+              優先度<%= sort_icon("priority") %>
+            <% end %>
+          </th>
           <th>完了</th>
           <th>削除</th>
           <th>編集</th>
@@ -60,14 +66,13 @@
       <tbody>
         <% @tasks.each do |task| %>
           <tr>
-            <td>  <!-- タイトル -->
+            <!-- タイトル -->
+            <td>
               <%= link_to task.title, task_path(task),
-                  style: "
-                    color: #2196F3;
-                    text-decoration: none;
-                    font-weight: bold;
-                  " %>
+                  style: "color: #2196F3; font-weight: bold; text-decoration: none;" %>
             </td>
+
+            <!-- 期限 -->
             <td>
               <% if task.deadline.present? && task.deadline < Date.today %>
                 <span style="color: red; font-weight: bold;">
@@ -81,6 +86,7 @@
                 <%= task.deadline %>
               <% end %>
             </td>
+
             <td><%= task.effort %></td>
             <td><%= task.content %></td>
             <td><%= task.priority %></td>
@@ -92,12 +98,8 @@
             </td>
 
             <td style="text-align: center;">
-              <%= link_to "削除",
-                task_path(task),
-                data: {
-                  turbo_method: :delete,
-                  turbo_confirm: "削除しますか？"
-                } %>
+              <%= link_to "削除", task_path(task),
+                data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>
             </td>
 
             <td style="text-align: center;">
@@ -106,6 +108,7 @@
           </tr>
         <% end %>
       </tbody>
+
     </table>
   </div>
 
