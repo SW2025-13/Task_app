@@ -20,6 +20,6 @@
 #コメントアウト&以下追加^^^^^^^^^^^^^^^^^^^^^
 
 production:
-  adapter: async
+ # adapter: async
 
 
