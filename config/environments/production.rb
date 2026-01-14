@@ -55,7 +55,7 @@ Rails.application.configure do
   #config.active_job.queue_adapter = :solid_queue
   config.active_job.queue_adapter = :async
 
-  config.solid_queue.connects_to = { database: { writing: :queue } }
+  #config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -93,6 +93,6 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   # Disable solid components for Render (single DB)
   config.action_cable.adapter = :async
-  config.active_job.queue_adapter = :async
+
 
 end
