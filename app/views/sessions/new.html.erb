@@ -1,50 +1,67 @@
-<h1>ログイン</h1>
+<div style="text-align: center; margin-top: 80px;">
 
-<% if flash[:alert] %>
-  <div style="color: red; margin-bottom: 15px;">
-    <%= flash[:alert] %>
+  <h1>ログイン</h1>
+
+  <% if flash[:alert] %>
+    <div style="color: red; margin-bottom: 15px;">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <%= form_with url: login_path, scope: :session, local: true do |f| %>
+
+    <!-- メールアドレス -->
+    <div style="margin-bottom: 15px;">
+      <%= f.label :email, "メールアドレス（ID）" %><br>
+      <%= f.text_field :email, style: "width: 250px; padding: 6px;" %>
+    </div>
+
+    <!-- パスワード -->
+    <div style="margin-bottom: 20px;">
+      <%= f.label :password, "パスワード" %><br>
+      <%= f.password_field :password, style: "width: 250px; padding: 6px;" %>
+    </div>
+
+    <!-- ログインボタン -->
+    <%= f.submit "ログイン",
+        style: "
+          padding: 8px 16px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          font-weight: bold;
+          cursor: pointer;
+        " %>
+
+  <% end %>
+
+  <div style="margin-top: 20px;">
+    <%= link_to "新規登録はこちら",
+        new_user_path,
+        style: "
+          display: inline-block;
+          padding: 10px 16px;
+          background-color: #2196F3;
+          color: white;
+          text-decoration: none;
+          border-radius: 6px;
+          font-weight: bold;
+        " %>
   </div>
-<% end %>
 
-<%= form_with url: login_path, scope: :session, local: true do |f| %>
-
-  <!-- メールアドレス -->
-  <div style="margin-bottom: 15px;">
-    <%= f.label :email, "メールアドレス（ID）" %><br>
-    <%= f.text_field :email, style: "width: 250px; padding: 6px;" %>
+  <div style="margin-top: 15px;">
+    <%= link_to "トップページへ戻る",
+        root_path,
+        style: "
+          display: inline-block;
+          padding: 10px 16px;
+          background-color: #9E9E9E;
+          color: white;
+          text-decoration: none;
+          border-radius: 6px;
+          font-weight: bold;
+        " %>
   </div>
 
-  <!-- パスワード -->
-  <div style="margin-bottom: 20px;">
-    <%= f.label :password, "パスワード" %><br>
-    <%= f.password_field :password, style: "width: 250px; padding: 6px;" %>
-  </div>
-
-  <!-- ログインボタン -->
-  <%= f.submit "ログイン",
-      style: "
-        padding: 8px 16px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-      " %>
-
-<% end %>
-
-<div style="margin-top: 20px;">
-  <%= link_to "新規登録はこちら",
-      new_user_path,
-      style: "
-        display: inline-block;
-        padding: 10px 16px;
-        background-color: #2196F3;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: bold;
-      " %>
 </div>
-

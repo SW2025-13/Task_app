@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
   before_action :require_login
   before_action :set_task, only: [:edit, :update, :destroy, :toggle_done]
-
   def index
     sort_column = params[:sort].presence_in(%w[deadline effort priority]) || 'deadline'
     @tasks = current_user.tasks.order(sort_column)

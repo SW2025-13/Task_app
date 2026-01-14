@@ -1,19 +1,21 @@
 Rails.application.routes.draw do
-  root "tasks#index"
+  # トップページ（最初のページ）
+  root "home#index"
 
-  get "/top", to: "top#index", as: "top"
+  # もし /top でも見せたいなら（任意）
+  # get "/top", to: "home#index", as: "top"
 
   resources :users, only: [:new, :create]
 
-  # ログイン
-  get  '/login',  to: 'sessions#new',     as: 'login'
-  post '/login',  to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy', as: 'logout'
+  # ログイン関連
+  get    "/login",  to: "sessions#new",     as: "login"
+  post   "/login",  to: "sessions#create"
+  delete "/logout", to: "sessions#destroy", as: "logout"
 
+  # ログイン後専用
   resources :tasks do
     member do
       post "toggle_done"
     end
   end
 end
-
