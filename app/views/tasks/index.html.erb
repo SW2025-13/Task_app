@@ -60,8 +60,27 @@
       <tbody>
         <% @tasks.each do |task| %>
           <tr>
-            <td><%= task.title %></td>
-            <td><%= task.deadline %></td>
+            <td>  <!-- タイトル -->
+              <%= link_to task.title, task_path(task),
+                  style: "
+                    color: #2196F3;
+                    text-decoration: none;
+                    font-weight: bold;
+                  " %>
+            </td>
+            <td>
+              <% if task.deadline.present? && task.deadline < Date.today %>
+                <span style="color: red; font-weight: bold;">
+                  <%= task.deadline %>（期限切れ）
+                </span>
+              <% elsif task.deadline.present? && task.deadline <= Date.today + 3 %>
+                <span style="color: orange;">
+                  <%= task.deadline %>（間近）
+                </span>
+              <% else %>
+                <%= task.deadline %>
+              <% end %>
+            </td>
             <td><%= task.effort %></td>
             <td><%= task.content %></td>
             <td><%= task.priority %></td>

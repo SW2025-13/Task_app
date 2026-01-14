@@ -1,17 +1,22 @@
-<h1 style="text-align: center;">タスク編集</h1>
+<h1 style="
+  text-align: center;
+  margin: 40px 0;
+">
+  タスク編集
+</h1>
 
 <% if @task.errors.present? %>
   <div style="
-    max-width: 700px;
+    max-width: 720px;
     margin: 20px auto;
-    padding: 15px;
+    padding: 18px;
     background-color: #ffecec;
-    border: 1px solid #ff9999;
+    border-left: 6px solid #ff4d4d;
     border-radius: 6px;
     color: #b30000;
   ">
     <strong><%= @task.errors.count %>件のエラーがあります：</strong>
-    <ul>
+    <ul style="margin-top: 10px;">
       <% @task.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
@@ -22,55 +27,89 @@
 <%= form_with(model: @task, local: true) do |f| %>
 
   <div style="
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 25px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fafafa;
+    max-width: 720px;
+    margin: 0 auto 60px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   ">
 
-    <div style="display: flex; gap: 30px;">
+    <!-- 上段 -->
+    <div style="display: flex; gap: 30px; margin-bottom: 25px;">
 
-      <!-- 左カラム -->
+      <!-- 左 -->
       <div style="flex: 1;">
-        <div style="margin-bottom: 15px;">
-          <%= f.label :title, "タイトル" %><br>
-          <%= f.text_field :title, style: "width: 100%; padding: 6px;" %>
+        <div style="margin-bottom: 18px;">
+          <label style="font-weight: bold;">タイトル</label><br>
+          <%= f.text_field :title,
+            style: "
+              width: 100%;
+              padding: 8px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            " %>
         </div>
 
-        <div style="margin-bottom: 15px;">
-          <%= f.label :priority, "優先度（1〜5）" %><br>
-          <%= f.number_field :priority, in: 1..5, style: "width: 100%; padding: 6px;" %>
+        <div style="margin-bottom: 18px;">
+          <label style="font-weight: bold;">優先度（1〜5）</label><br>
+          <%= f.number_field :priority, in: 1..5,
+            style: "
+              width: 100%;
+              padding: 8px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            " %>
         </div>
 
         <div>
-          <%= f.label :effort, "労力（1〜5）" %><br>
-          <%= f.number_field :effort, in: 1..5, style: "width: 100%; padding: 6px;" %>
+          <label style="font-weight: bold;">労力（1〜5）</label><br>
+          <%= f.number_field :effort, in: 1..5,
+            style: "
+              width: 100%;
+              padding: 8px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            " %>
         </div>
       </div>
 
-      <!-- 右カラム -->
+      <!-- 右 -->
       <div style="flex: 1;">
-        <%= f.label :content, "説明" %><br>
-        <%= f.text_area :content, rows: 8, style: "width: 100%; padding: 6px;" %>
+        <label style="font-weight: bold;">説明</label><br>
+        <%= f.text_area :content, rows: 9,
+          style: "
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+          " %>
       </div>
     </div>
 
-    <div style="margin-top: 20px;">
-      <%= f.label :deadline, "期限" %><br>
-      <%= f.date_field :deadline, style: "padding: 6px;" %>
+    <!-- 期限 -->
+    <div style="margin-bottom: 30px;">
+      <label style="font-weight: bold;">期限</label><br>
+      <%= f.date_field :deadline,
+        style: "
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        " %>
     </div>
 
-    <div style="margin-top: 30px; text-align: center;">
+    <!-- ボタン -->
+    <div style="text-align: center;">
       <%= f.submit "更新",
         style: "
-          padding: 10px 30px;
+          padding: 12px 40px;
           background-color: #4CAF50;
           color: white;
           border: none;
-          border-radius: 6px;
-          font-size: 16px;
+          border-radius: 8px;
+          font-size: 17px;
+          font-weight: bold;
           cursor: pointer;
         " %>
     </div>

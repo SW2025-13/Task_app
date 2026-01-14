@@ -1,44 +1,101 @@
-<h1>詳細ページ</h1>
+<h1 style="
+  text-align: center;
+  margin: 40px 0;
+">
+  タスク詳細
+</h1>
 
-<div style="margin-bottom: 20px;">
-  <p><strong>タスク名：</strong></p>
-  <p><%= @task.title %></p>
-</div>
+<div style="
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+">
 
-<!-- 説明内容 -->
-<div style="margin-bottom: 20px;">
-  <p><strong>説明内容：</strong></p>
-  <div style="border: 1px solid #ccc; padding: 10px; min-height: 150px;">
-    <%= simple_format(@task.content) %>
+  <!-- タスク名 -->
+  <div style="margin-bottom: 25px;">
+    <p style="font-weight: bold; font-size: 18px;">タスク名</p>
+    <p style="font-size: 16px;"><%= @task.title %></p>
   </div>
+
+  <!-- 説明 -->
+  <div style="margin-bottom: 25px;">
+    <p style="font-weight: bold; font-size: 18px;">説明内容</p>
+    <div style="
+      border: 1px solid #ccc;
+      padding: 15px;
+      min-height: 150px;
+      background: white;
+      border-radius: 6px;
+    ">
+      <%= simple_format(@task.content) %>
+    </div>
+  </div>
+
+  <!-- 情報グリッド -->
+  <div style="
+    display: flex;
+    gap: 40px;
+    margin-bottom: 25px;
+  ">
+    <div>
+      <p><strong>優先度：</strong> <%= @task.priority %></p>
+      <p><strong>労力：</strong> <%= @task.effort %></p>
+    </div>
+
+    <div>
+      <% if @task.deadline.present? && @task.deadline < Date.today %>
+        <p style="color: red;">
+          <strong>期限：</strong> <%= @task.deadline %>（期限切れ）
+        </p>
+      <% else %>
+        <p><strong>期限：</strong> <%= @task.deadline %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- ボタン -->
+  <div style="
+    margin-top: 30px;
+    text-align: center;
+  ">
+    <%= link_to "一覧へ戻る", tasks_path,
+      style: "
+        display: inline-block;
+        padding: 10px 20px;
+        background: #9E9E9E;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-right: 10px;
+      " %>
+
+    <%= link_to "編集", edit_task_path(@task),
+      style: "
+        display: inline-block;
+        padding: 10px 20px;
+        background: #2196F3;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-right: 10px;
+      " %>
+
+    <%= link_to "削除", task_path(@task),
+      data: {
+        turbo_method: :delete,
+        turbo_confirm: "本当に削除しますか？"
+      },
+      style: "
+        display: inline-block;
+        padding: 10px 20px;
+        background: #ff4d4d;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+      " %>
+  </div>
+
 </div>
-
-
-<!-- 優先順位 -->
-<div style="margin-bottom: 20px;">
-  <p><strong>優先順位：</strong> <%= @task.priority %></p>
-</div>
-
-<!-- 労力 -->
-<div style="margin-bottom: 20px;">
-  <p><strong>労力：</strong> <%= @task.effort %></p>
-</div>
-
-<!-- 期限（期限切れなら赤色に） -->
-<div style="margin-bottom: 20px;">
-  <% if @task.deadline.present? && @task.deadline < Date.today %>
-    <p style="color: red;">
-      <strong>期限：</strong> <%= @task.deadline %>（期限切れ）
-    </p>
-  <% else %>
-    <p><strong>期限：</strong> <%= @task.deadline %></p>
-  <% end %>
-</div>
-
-<!-- ボタン類 -->
-<div style="margin-top: 20px;">
-  <%= link_to "戻る", tasks_path, class: "btn", style: "margin-right: 10px;" %>
-  <%= link_to "編集", edit_task_path(@task), class: "btn", style: "margin-right: 10px;" %>
-<%= link_to "削除", task_path(@task),
-      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
-      class: "btn", style: "color: red;" %>
