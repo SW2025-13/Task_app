@@ -65,4 +65,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "solid_queue"
+  ###追加1/21
+  gem "redis"
 end
